@@ -23,7 +23,7 @@ def crear_receta(
     db: Session = Depends(get_db),
     current_user=Depends(require_roles(*authorized_roles))
 ):
-    return create_receta(db, receta)
+    return create_receta(db, receta, current_user["id_usuario"])
 
 
 @router.get("/", response_model=list[RecetaOut])

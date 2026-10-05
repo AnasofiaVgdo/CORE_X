@@ -111,7 +111,9 @@ CREATE TABLE public.materia_prima (
 
 CREATE TABLE public.receta (
     id_receta SERIAL PRIMARY KEY,
-    descripcion VARCHAR(100)
+    id_usuario INT NOT NULL,
+    descripcion VARCHAR(100),
+    FOREIGN KEY (id_usuario) REFERENCES public.usuario(id_usuario)
 );
 
 CREATE TABLE public.receta_materia_prima (

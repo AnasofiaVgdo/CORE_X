@@ -1,11 +1,10 @@
-from fastapi import APIRouter
-from sqlalchemy import create_engine, text
-import os
+from fastapi import APIRouter, HTTPException, status
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
+
+from app.db.session import engine
 
 router = APIRouter()
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL)
 
 @router.get("/")
 def health():
@@ -13,5 +12,8 @@ def health():
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         return {"status": "ok", "database": "reachable"}
-    except Exception as e:
-        return {"status": "error", "database": "unreachable", "detail": str(e)}
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={"status": "error", "database": "unreachable"},
+        )

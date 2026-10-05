@@ -15,3 +15,5 @@ class RecetaUpdate(BaseModel):
 
 class RecetaOut(RecetaBase):
     id_receta: int = Field(..., ge=1)
+    id_usuario: int = Field(..., ge=1)
+    usuario: str = Field(..., min_length=1, max_length=100)

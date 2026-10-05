@@ -3,9 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
 <script id="tailwind-config">
     tailwind.config = {
         darkMode: "class",
@@ -13,188 +19,900 @@
             extend: {
                 colors: {
                     "primary": "#5d1927",
-                    "background-light": "#febdc6",
+                    "background-light": "#ffd1dc",
                     "background-dark": "#1f1316",
                 },
-                fontFamily: { "display": ["Plus Jakarta Sans"] },
-                borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                fontFamily: {
+                    "display": ["Plus Jakarta Sans", "sans-serif"]
+                },
+                borderRadius: {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
             },
         },
     }
 </script>
-<title>Nonna - CRUD'S DEL SISTEMA</title>
-<style>
-    .card-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        padding: 2.5rem;
-        background-color: white;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        border: 1px solid white;
-        text-decoration: none;
-    }
-    .card-link:hover {
-        transform: scale(1.02);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        border-color: #5d1927;
-    }
-    .card-link:hover .icon-circle {
-        background-color: #5d1927;
-        color: white;
-    }
-    .icon-circle {
-        width: 5rem;
-        height: 5rem;
-        border-radius: 9999px;
-        background-color: rgba(93, 25, 39, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #5d1927;
-        transition: all 0.3s ease;
-    }
-    .card-link span:last-child {
-        color: #5d1927;
-        font-size: 1.25rem;
-        font-weight: 700;
-    }
-</style>
-</head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
-<div class="layout-container flex h-full grow flex-col">
-    <!-- Top Navigation Bar Begins-->
-    <header
-        class="w-full bg-[#f3dfe0] dark:bg-slate-900 border-b border-primary/10 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-        <div class="flex items-center gap-6">
-        <div class="flex items-center gap-3">
-            <div class="bg-primary p-2 rounded-lg text-white">
-                <span class="material-symbols-outlined block text-2xl">bakery_dining</span>
-            </div>
-            <h1 class="text-primary text-xl font-bold tracking-tight">Nonna</h1>
-        </div>
-        <div class="h-8 w-[1px] bg-primary/20"></div>
-        <a href="menuprincipal.html" class="flex items-center gap-2 text-primary hover:bg-primary/10 px-4 py-2 rounded-lg transition-colors duration-200">
-                <span class="material-symbols-outlined">home</span>
-                <span class="text-sm font-bold leading-normal">Menú Principal</span>
-        </a>
-        </div>
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-3 pl-4 border-l border-slate-200 dark:border-slate-700">
-                <div class="text-right hidden sm:block">
-                    <p id="textoUsuario" class="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                        Nombre de usuario
-                    </p>
-                    <p id="textoRol" class="text-xs text-slate-500">Rol</p>
-                </div>
-            </div>
-            <!-- Botón de Cerrar Sesión -->
-            <button id="botonCerrarSesion"
-                class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-300 shadow-md hover:shadow-lg">
-                <span class="material-symbols-outlined text-xl">logout</span>
-                <span class="hidden sm:inline text-sm font-medium">Cerrar Sesión</span>
-            </button>
-        </div>
-    </header>
-    <script>
-        document.getElementById("textoUsuario").innerText =
-            localStorage.getItem("usuario") || "Invitado";
-        document.getElementById("textoRol").innerText =
-            localStorage.getItem("rol") || "Sin rol";
 
-        const botonCerrarSesion = document.getElementById("botonCerrarSesion");
-        botonCerrarSesion.addEventListener("click", function () {
-            localStorage.clear();
-            window.location.href = "registro.html";
-        });
-    </script>
-    <!-- Top Navigation Bar Ends-->
-    
-    <main class="flex flex-1 justify-center py-12 px-10">
-        <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
-            <div class="flex flex-col gap-2 mb-10">
-                <h1 class="text-primary text-5xl font-black leading-tight tracking-[-0.033em]">CRUD'S DEL SISTEMA</h1>
-                <p class="text-primary/70 text-lg font-medium">Gestión administrativa y mantenimiento de datos maestros</p>
+<title>Nonna - Iniciar Sesión</title>
+
+<style>
+
+    /* ============================================ */
+    /* ANIMACIONES PARA LOS MENSAJES */
+    /* ============================================ */
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -40%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .animate-fadeIn {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .animate-fadeOut {
+        animation: fadeOut 0.3s ease-out forwards;
+    }
+
+    .animate-slideIn {
+        animation: slideIn 0.3s ease-out;
+    }
+
+
+    /* ============================================ */
+    /* OCULTAR EL OJO DEL NAVEGADOR */
+    /* ============================================ */
+
+    input[type="password"]::-ms-reveal,
+    input[type="password"]::-ms-clear,
+    input[type="password"]::-webkit-clear-button,
+    input[type="password"]::-webkit-password-toggle-button {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* Para Firefox */
+    input[type="password"] {
+        -moz-appearance: textfield;
+    }
+
+</style>
+
+</head>
+
+<body class="dark:bg-background-dark font-display antialiased"
+      style="background-color: #FEBDC6;">
+
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4">
+
+    <!-- ============================================ -->
+    <!-- MAIN LOGIN CARD -->
+    <!-- ============================================ -->
+
+    <div class="w-full max-w-[440px] bg-white dark:bg-slate-900 rounded-xl shadow-xl shadow-primary/5 overflow-hidden border border-primary/5">
+
+        <div class="px-8 pt-12 flex flex-col items-center pb-12">
+
+            <!-- ============================================ -->
+            <!-- LOGO -->
+            <!-- ============================================ -->
+
+            <div class="mb-8 text-center">
+
+                <h1 class="text-primary dark:text-slate-100 tracking-tight text-4xl font-bold leading-tight">
+                    Nonna
+                </h1>
+
+                <div class="flex items-center justify-center gap-1.5 mt-2">
+
+                    <p class="text-primary/60 dark:text-slate-400 text-sm font-medium">
+                        Hecho con amor por Elisa de Valle
+                    </p>
+
+                    <span class="material-symbols-outlined text-primary text-sm">
+                        favorite
+                    </span>
+
+                </div>
+
             </div>
-            <!-- Grid of CRUD Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- 1. Productos -->
-                <a href="productos.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">inventory_2</span>
+
+
+            <!-- ============================================ -->
+            <!-- FORMULARIO -->
+            <!-- ============================================ -->
+
+            <div class="w-full space-y-6">
+
+
+                <!-- ============================================ -->
+                <!-- USUARIO -->
+                <!-- ============================================ -->
+
+                <div class="flex flex-col gap-2">
+
+                    <label class="text-slate-700 dark:text-slate-200 text-sm font-semibold px-1">
+                        Nombre de Usuario
+                    </label>
+
+                    <div class="relative">
+
+                        <input
+                            id="username"
+                            class="form-input flex w-full rounded-lg text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary h-12 px-4 text-base transition-all placeholder:text-slate-400"
+                            placeholder="Ingrese su nombre de usuario"
+                            type="text"
+                            autocomplete="off">
+
                     </div>
-                    <span>Productos</span>
-                </a>
-                <!-- 2. Recetas -->
-                <a href="recetas.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">menu_book</span>
+
+                </div>
+
+
+                <!-- ============================================ -->
+                <!-- CONTRASEÑA -->
+                <!-- ============================================ -->
+
+                <div class="flex flex-col gap-2">
+
+                    <label class="text-slate-700 dark:text-slate-200 text-sm font-semibold px-1">
+                        Contraseña
+                    </label>
+
+                    <div class="relative flex items-stretch">
+
+                        <!-- Campo de contraseña -->
+
+                        <input
+                            id="password"
+                            class="form-input flex w-full rounded-lg rounded-r-none border-r-0 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary h-12 px-4 text-base transition-all placeholder:text-slate-400"
+                            placeholder="••••••••"
+                            type="password"
+                            autocomplete="new-password">
+
+
+                        <!-- Botón mostrar / ocultar -->
+
+                        <button
+                            id="togglePasswordBtn"
+                            class="flex items-center justify-center px-4 rounded-r-lg border border-l-0 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-400 hover:text-primary transition-colors"
+                            type="button">
+
+                            <span
+                                id="visibilityIcon"
+                                class="material-symbols-outlined">
+                                visibility
+                            </span>
+
+                        </button>
+
                     </div>
-                    <span>Recetas</span>
-                </a>
-                <!-- 3. Materia Prima -->
-                <a href="materia_prima.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">egg</span>
-                    </div>
-                    <span>Materia Prima</span>
-                </a>
-                <!-- 4. Usuarios -->
-                <a href="usuarios.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">group</span>
-                    </div>
-                    <span>Usuarios</span>
-                </a>
-                <!-- 5. Roles -->
-                <a href="roles.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">admin_panel_settings</span>
-                    </div>
-                    <span>Roles</span>
-                </a>
-                <!-- 6. Clientes -->
-                <a href="clientes.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">person_search</span>
-                    </div>
-                    <span>Clientes</span>
-                </a>
-                <!-- 7. Pedidos -->
-                <a href="pedidos.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">shopping_cart</span>
-                    </div>
-                    <span>Pedidos</span>
-                </a>
-                <!-- 8. Proveedores -->
-                <a href="proveedores.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">local_shipping</span>
-                    </div>
-                    <span>Proveedores</span>
-                </a>
-                <!-- 9. Cotizaciones -->
-                <a href="cotizaciones.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">request_quote</span>
-                    </div>
-                    <span>Cotizaciones</span>
-                </a>
-                <!-- 10. Compras (NUEVO) -->
-                <a href="compras.html" class="card-link group">
-                    <div class="icon-circle">
-                        <span class="material-symbols-outlined text-4xl">shopping_bag</span>
-                    </div>
-                    <span>Compras</span>
-                </a>
+
+                </div>
+
+
+                <!-- ============================================ -->
+                <!-- BOTÓN DE LOGIN -->
+                <!-- ============================================ -->
+
+                <div class="pt-2">
+
+                    <button
+                        id="loginBtn"
+                        class="group relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold tracking-wide transition-all hover:bg-primary/90 active:scale-[0.98]"
+                        type="button">
+
+                        <!--
+                            ESTE TEXTO SERÁ MODIFICADO
+                            POR LA PRUEBA A/B
+                        -->
+
+                        <span id="loginBtnText">
+                            Acceder a mi cuenta
+                        </span>
+
+                        <!-- Ícono -->
+
+                        <span class="material-symbols-outlined ml-2 text-xl group-hover:translate-x-1 transition-transform">
+                            arrow_forward
+                        </span>
+
+                    </button>
+
+                </div>
+
             </div>
+
         </div>
-    </main>
+
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- FONDO DECORATIVO -->
+    <!-- ============================================ -->
+
+    <div class="fixed top-0 left-0 w-full h-full -z-10 opacity-30 pointer-events-none">
+
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl">
+        </div>
+
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl">
+        </div>
+
+    </div>
+
 </div>
+
+
+<script>
+
+
+    // =========================================================
+    // FUNCIÓN PARA MOSTRAR MENSAJES CENTRALES
+    // =========================================================
+
+    function mostrarMensajeCentral(titulo, tipo, mensaje = '') {
+
+        const colores = {
+
+            success: {
+                bg: 'bg-green-500',
+                icono: 'check_circle',
+                botonBg: 'bg-green-600 hover:bg-green-700'
+            },
+
+            error: {
+                bg: 'bg-red-500',
+                icono: 'error',
+                botonBg: 'bg-red-600 hover:bg-red-700'
+            },
+
+            warning: {
+                bg: 'bg-yellow-500',
+                icono: 'warning',
+                botonBg: 'bg-yellow-600 hover:bg-yellow-700'
+            },
+
+            info: {
+                bg: 'bg-blue-500',
+                icono: 'info',
+                botonBg: 'bg-blue-600 hover:bg-blue-700'
+            }
+
+        };
+
+
+        const color = colores[tipo] || colores.info;
+
+
+        // Crear overlay
+
+        const overlay = document.createElement('div');
+
+        overlay.className =
+            'fixed inset-0 bg-black/50 z-[1000] animate-fadeIn';
+
+
+        // Crear contenedor del mensaje
+
+        const mensajeDiv = document.createElement('div');
+
+        mensajeDiv.className =
+            `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1001] ${color.bg} text-white rounded-xl p-6 min-w-[320px] max-w-[400px] shadow-2xl animate-slideIn`;
+
+
+        // Contenido
+
+        mensajeDiv.innerHTML = `
+
+            <div class="flex flex-col items-center text-center">
+
+                <div class="mb-4">
+
+                    <span class="material-symbols-outlined text-5xl">
+                        ${color.icono}
+                    </span>
+
+                </div>
+
+                <h3 class="text-xl font-bold mb-2">
+                    ${titulo}
+                </h3>
+
+                ${
+                    mensaje
+                    ? `<p class="text-sm opacity-90 mb-6">${mensaje}</p>`
+                    : ''
+                }
+
+                <button
+                    id="btnCerrarMensaje"
+                    class="${color.botonBg} text-white px-6 py-2 rounded-lg font-semibold transition-all transform hover:scale-105">
+
+                    Entendido
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        // Agregar al body
+
+        document.body.appendChild(overlay);
+
+        document.body.appendChild(mensajeDiv);
+
+
+        // Función cerrar
+
+        function cerrarMensaje() {
+
+            mensajeDiv.classList.add('animate-fadeOut');
+
+            overlay.classList.add('animate-fadeOut');
+
+
+            setTimeout(() => {
+
+                if (mensajeDiv.parentNode) {
+                    mensajeDiv.remove();
+                }
+
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+
+            }, 300);
+
+        }
+
+
+        // Botón cerrar
+
+        const btnCerrar =
+            mensajeDiv.querySelector('#btnCerrarMensaje');
+
+        btnCerrar.addEventListener(
+            'click',
+            cerrarMensaje
+        );
+
+
+        // Cerrar al hacer click en overlay
+
+        overlay.addEventListener(
+            'click',
+            cerrarMensaje
+        );
+
+    }
+
+
+
+    // =========================================================
+    // PRUEBA A/B
+    // =========================================================
+    //
+    // Variante A:
+    // "Iniciar sesión"
+    //
+    // Variante B:
+    // "Ingresar a Noonas"
+    //
+    // =========================================================
+
+
+    // Obtener el elemento donde aparece el texto
+
+    const loginBtnText =
+        document.getElementById('loginBtnText');
+
+
+    // Buscar si el usuario ya tiene una variante asignada
+
+    let variante =
+        localStorage.getItem("ab_variant");
+
+
+    // Si todavía no tiene variante...
+
+    if (!variante) {
+
+        // Asignar aleatoriamente A o B
+
+        variante =
+            Math.random() < 0.5
+                ? "A"
+                : "B";
+
+
+        // Guardar la variante
+
+        localStorage.setItem(
+            "ab_variant",
+            variante
+        );
+
+
+        // Guardar fecha de inicio
+
+        localStorage.setItem(
+            "ab_start",
+            new Date().toISOString()
+        );
+
+    }
+
+
+    // Aplicar la variante
+
+    if (variante === "A") {
+
+        // VARIANTE A
+
+        loginBtnText.textContent =
+            "Iniciar sesión";
+
+    }
+
+    else {
+
+        // VARIANTE B
+
+        loginBtnText.textContent =
+            "Ingresar a Noonas";
+
+    }
+
+
+    // Mostrar información en consola
+
+    console.log(
+        "================================="
+    );
+
+    console.log(
+        "PRUEBA A/B DE NOONAS"
+    );
+
+    console.log(
+        "Variante asignada:",
+        variante
+    );
+
+    console.log(
+        "Fecha de inicio:",
+        localStorage.getItem("ab_start")
+    );
+
+    console.log(
+        "================================="
+    );
+
+
+
+    // =========================================================
+    // MOSTRAR / OCULTAR CONTRASEÑA
+    // =========================================================
+
+
+    const passwordInput =
+        document.getElementById('password');
+
+
+    const togglePasswordBtn =
+        document.getElementById('togglePasswordBtn');
+
+
+    const visibilityIcon =
+        document.getElementById('visibilityIcon');
+
+
+    // Estado de la contraseña
+
+    let isPasswordVisible = false;
+
+
+    // Evento del botón
+
+    if (togglePasswordBtn) {
+
+        togglePasswordBtn.addEventListener(
+            'click',
+            function(e) {
+
+                e.preventDefault();
+
+                e.stopPropagation();
+
+
+                // Cambiar estado
+
+                isPasswordVisible =
+                    !isPasswordVisible;
+
+
+                if (isPasswordVisible) {
+
+                    // Mostrar contraseña
+
+                    passwordInput.type =
+                        'text';
+
+
+                    visibilityIcon.textContent =
+                        'visibility_off';
+
+                }
+
+                else {
+
+                    // Ocultar contraseña
+
+                    passwordInput.type =
+                        'password';
+
+
+                    visibilityIcon.textContent =
+                        'visibility';
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    // =========================================================
+    // LOGIN
+    // REDIRECCIÓN SEGÚN id_rol
+    // =========================================================
+
+
+    const loginButton =
+        document.getElementById('loginBtn');
+
+
+    if (loginButton) {
+
+        loginButton.addEventListener(
+            'click',
+            function(e) {
+
+                e.preventDefault();
+
+
+                // Obtener usuario
+
+                const username =
+                    document
+                        .getElementById('username')
+                        .value;
+
+
+                // Obtener contraseña
+
+                const password =
+                    document
+                        .getElementById('password')
+                        .value;
+
+
+                // ============================================
+                // VALIDAR CAMPOS
+                // ============================================
+
+                if (!username || !password) {
+
+                    mostrarMensajeCentral(
+
+                        '⚠️ Campos incompletos',
+
+                        'warning',
+
+                        'Por favor, complete todos los campos para continuar.'
+
+                    );
+
+                    return;
+
+                }
+
+
+                // ============================================
+                // PREPARAR DATOS DEL LOGIN
+                // ============================================
+
+                const data =
+                    new URLSearchParams();
+
+
+                data.append(
+                    "grant_type",
+                    ""
+                );
+
+
+                data.append(
+                    "username",
+                    username
+                );
+
+
+                data.append(
+                    "password",
+                    password
+                );
+
+
+                data.append(
+                    "scope",
+                    ""
+                );
+
+
+                data.append(
+                    "client_id",
+                    ""
+                );
+
+
+                data.append(
+                    "client_secret",
+                    ""
+                );
+
+
+                // ============================================
+                // ENVIAR LOGIN AL BACKEND
+                // ============================================
+
+                fetch(
+                    "http://127.0.0.1:8000/api/auth/login",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/x-www-form-urlencoded",
+
+                            "accept":
+                                "application/json"
+
+                        },
+
+                        body: data
+
+                    }
+                )
+
+                .then(res => {
+
+                    if (!res.ok) {
+
+                        throw new Error(
+                            `Error HTTP: ${res.status}`
+                        );
+
+                    }
+
+                    return res.json();
+
+                })
+
+
+                // ============================================
+                // OBTENER TOKEN
+                // ============================================
+
+                .then(data => {
+
+                    if (data.access_token) {
+
+                        // Guardar token
+
+                        localStorage.setItem(
+                            "token",
+                            data.access_token
+                        );
+
+
+                        // Obtener información del usuario
+
+                        return fetch(
+                            `http://127.0.0.1:8000/api/auth/usuario/${username}`,
+                            {
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        `Bearer ${data.access_token}`
+
+                                }
+
+                            }
+                        );
+
+                    }
+
+                    else {
+
+                        throw new Error(
+                            'No access_token'
+                        );
+
+                    }
+
+                })
+
+
+                // ============================================
+                // PROCESAR INFORMACIÓN DEL USUARIO
+                // ============================================
+
+                .then(res2 => {
+
+                    if (!res2.ok) {
+
+                        throw new Error(
+                            `Error HTTP: ${res2.status}`
+                        );
+
+                    }
+
+                    return res2.json();
+
+                })
+
+
+                .then(data2 => {
+
+
+                    // ========================================
+                    // GUARDAR DATOS DEL USUARIO
+                    // ========================================
+
+                    localStorage.setItem(
+                        "id_usuario",
+                        data2.id_usuario
+                    );
+
+
+                    localStorage.setItem(
+                        "usuario",
+                        data2.nombre
+                    );
+
+
+                    localStorage.setItem(
+                        "id_rol",
+                        data2.id_rol
+                    );
+
+
+                    localStorage.setItem(
+                        "rol",
+                        data2.rol
+                    );
+
+
+                    // ========================================
+                    // GUARDAR DATOS DE LA PRUEBA A/B
+                    // ========================================
+
+                    localStorage.setItem(
+                        "ab_variant",
+                        variante
+                    );
+
+
+                    // ========================================
+                    // REDIRECCIÓN SEGÚN ROL
+                    // ========================================
+
+                    const roleDestinations = {
+                        admin: "/pages/menu.html",
+                        "dueña": "/pages/menuprincipal.html",
+                        repartidor: "/pages/calendario2.html"
+                    };
+
+                    const normalizedRole = (data2.rol || "")
+                        .trim()
+                        .toLocaleLowerCase("es-MX");
+
+                    window.location.href =
+                        roleDestinations[normalizedRole] || "/pages/menu.html";
+
+                })
+
+
+                // ============================================
+                // ERROR
+                // ============================================
+
+                .catch(err => {
+
+                    console.error(
+                        "Error en el login o al obtener usuario:",
+                        err
+                    );
+
+
+                    mostrarMensajeCentral(
+
+                        '❌ Credenciales incorrectas',
+
+                        'error',
+
+                        'Usuario o contraseña inválidos. Verifique e intente de nuevo.'
+
+                    );
+
+                });
+
+            }
+        );
+
+    }
+
+
+
+    // =========================================================
+    // PREVENIR OJO DEL NAVEGADOR
+    // =========================================================
+
+    if (passwordInput) {
+
+        passwordInput.setAttribute(
+            'autocomplete',
+            'new-password'
+        );
+
+    }
+
+</script>
+
 </body>
 </html>
