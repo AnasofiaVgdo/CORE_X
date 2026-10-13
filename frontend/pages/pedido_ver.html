@@ -29,6 +29,7 @@
     }
 </script>
 <title>Detalles del Pedido - Nonna</title>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="bg-[#FEBDC6] font-display min-h-screen flex items-center justify-center p-4">
 <div class="layout-content-container flex flex-col w-full max-w-[1024px] bg-white rounded-2xl shadow-2xl overflow-hidden my-8">
@@ -119,7 +120,6 @@
 </div>
 
 <script>
-    const API_BASE = 'http://127.0.0.1:8000/api';
     const TOKEN = localStorage.token;
     function getHeaders() { return { 'accept': 'application/json', 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' }; }
 
@@ -238,7 +238,7 @@
                                 <div class="flex items-center gap-4">
                                     <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary overflow-hidden">
                                         ${imagenUrl ? 
-                                            `<img src="http://127.0.0.1:8000${imagenUrl}" alt="${item.producto}" class="w-full h-full object-cover">` : 
+                                            `<img src="${SERVER_BASE}${imagenUrl}" alt="${item.producto}" class="w-full h-full object-cover">` : 
                                             `<span class="material-symbols-outlined">cake</span>`
                                         }
                                     </div>

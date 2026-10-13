@@ -22,6 +22,7 @@
         body { background-color: #FEBDC6; font-family: 'Montserrat', sans-serif; }
         .modal-mensaje { transition: opacity 0.3s ease, visibility 0.3s ease; }
     </style>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -79,7 +80,6 @@
     </div>
 
     <script>
-        const API_BASE = 'http://127.0.0.1:8000/api';
         const TOKEN = localStorage.token;
         if (!TOKEN) {
             alert('No hay sesión activa.');

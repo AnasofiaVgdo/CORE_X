@@ -12,7 +12,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     data.append("client_id", "");
     data.append("client_secret", "");
 
-    fetch("http://127.0.0.1:8000/api/auth/login", {
+    fetch(API_BASE + "/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

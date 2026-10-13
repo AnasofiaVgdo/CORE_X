@@ -29,6 +29,7 @@
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     .modal-mensaje { transition: opacity 0.3s ease, visibility 0.3s ease; }
 </style>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="bg-accent min-h-screen flex items-center justify-center p-4">
 
@@ -119,7 +120,6 @@
 </div>
 
 <script>
-    const API_BASE = 'http://127.0.0.1:8000/api';
     const TOKEN = localStorage.token;
 
     function getHeaders() {

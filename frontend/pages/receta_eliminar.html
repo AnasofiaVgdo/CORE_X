@@ -29,6 +29,7 @@
         transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 </style>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="bg-accent min-h-screen flex items-center justify-center p-4">
 <div class="fixed inset-0 bg-primary/20 backdrop-blur-sm flex items-center justify-center p-6">
@@ -106,7 +107,6 @@
 </div>
 
 <script>
-    const API_BASE = 'http://127.0.0.1:8000/api';
     const TOKEN = localStorage.token;
 
     function getHeaders() {

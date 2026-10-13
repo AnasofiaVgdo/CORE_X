@@ -38,6 +38,7 @@
     }
 </style>
 <title>Editar Receta - Nonna</title>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="bg-[#FEBDC6] font-display min-h-screen flex items-center justify-center p-4">
 <div class="bg-white w-full max-w-[1280px] min-h-[960px] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
@@ -191,7 +192,6 @@
 </div>
 
 <script>
-    const API_BASE = 'http://127.0.0.1:8000/api';
     const TOKEN = localStorage.token;
     const ID_USUARIO_SESION = parseInt(localStorage.getItem('id_usuario'));
 

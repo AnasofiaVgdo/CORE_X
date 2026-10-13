@@ -33,6 +33,7 @@
     }
     .modal-mensaje { transition: opacity 0.3s ease, visibility 0.3s ease; }
 </style>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-300">
 
@@ -146,7 +147,6 @@
 </div>
 
 <script>
-    const API_BASE = 'http://127.0.0.1:8000/api';
     const TOKEN = localStorage.token;
     if (!TOKEN) { alert('No hay sesión activa.'); window.location.href = '/index.html'; }
 

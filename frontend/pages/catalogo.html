@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Noonas Pastelería · Productos reales</title>
   <link rel="stylesheet" href="/assets/css/styles.css" />
+<script src="../assets/js/config.js"></script>
 </head>
 <body>
 
@@ -50,7 +51,7 @@
 </footer>
 
 <script>
-  const API_BASE_URL = 'http://127.0.0.1:8000';
+  const API_BASE_URL = API_URL;
   const PRODUCTOS_ENDPOINT = '/api/producto/';
 
   function getFullImageUrl(imageUrl) {

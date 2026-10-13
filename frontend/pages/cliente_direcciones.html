@@ -50,6 +50,7 @@
     .toast-close { cursor: pointer; color: #9ca3af; transition: color 0.2s; }
     .toast-close:hover { color: #4b5563; }
 </style>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-sans min-h-screen">
 <main class="max-w-4xl mx-auto px-6 lg:px-12 py-10">
@@ -78,7 +79,6 @@
 </main>
 
 <script>
-    const API_BASE = 'http://127.0.0.1:8000/api';
     const TOKEN = localStorage.token;
     if (!TOKEN) {
         alert('⚠️ No hay token de autenticación. Redirigiendo al login.');

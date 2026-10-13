@@ -110,6 +110,7 @@
 
 </style>
 
+<script src="assets/js/config.js"></script>
 </head>
 
 <body class="dark:bg-background-dark font-display antialiased"
@@ -705,7 +706,7 @@
                 // ============================================
 
                 fetch(
-                    "http://127.0.0.1:8000/api/auth/login",
+                    API_BASE + "/auth/login",
                     {
 
                         method: "POST",
@@ -759,7 +760,7 @@
                         // Obtener información del usuario
 
                         return fetch(
-                            `http://127.0.0.1:8000/api/auth/usuario/${username}`,
+                            `${API_BASE}/auth/usuario/${username}`,
                             {
 
                                 headers: {

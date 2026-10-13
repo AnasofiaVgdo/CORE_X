@@ -42,6 +42,7 @@
             opacity: 0.8;
         }
     </style>
+<script src="../assets/js/config.js"></script>
 </head>
 <body class="min-h-screen p-4 flex items-center justify-center">
     <div id="diagnostico">🔄 Diagnóstico en curso...</div>
@@ -131,17 +132,6 @@
     </div>
 
     <script>
-        // ===== CONFIGURACIÓN - CAMBIA ESTO SEGÚN TU BACKEND =====
-        // Opción 1: Si el servidor está en tu computadora local
-        // const API_BASE = 'http://localhost:8000/api';
-        
-        // Opción 2: Si usas una IP específica (la actual)
-        const API_BASE = 'http://127.0.0.1:8000/api';
-        
-        // Opción 3: Si usas ngrok o tunnel
-        // const API_BASE = 'https://tun-tunnel.ngrok.io/api';
-        // =======================================================
-        
         const TOKEN = localStorage.token;
         
         // Diagnóstico
