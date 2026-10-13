@@ -63,6 +63,68 @@
         font-size: 1.25rem;
         font-weight: 700;
     }
+
+    /* Tarjeta oculta por la búsqueda (mayor especificidad que .card-link) */
+    .card-link.is-hidden {
+        display: none;
+    }
+
+    /* Barra de búsqueda */
+    .search-box {
+        position: relative;
+        width: 100%;
+        max-width: 24rem;
+    }
+    .search-box input {
+        width: 100%;
+        padding: 0.75rem 2.75rem 0.75rem 3rem;
+        background-color: white;
+        border: 1px solid rgba(93, 25, 39, 0.25);
+        border-radius: 9999px;
+        color: #5d1927;
+        font-weight: 600;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search-box input::placeholder {
+        color: rgba(93, 25, 39, 0.5);
+        font-weight: 500;
+    }
+    .search-box input:focus {
+        outline: none;
+        border-color: #5d1927;
+        box-shadow: 0 0 0 3px rgba(93, 25, 39, 0.2);
+    }
+    .search-box .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #5d1927;
+        pointer-events: none;
+    }
+    .search-box .clear-btn {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+        color: #5d1927;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+    }
+    .search-box .clear-btn:hover {
+        background-color: rgba(93, 25, 39, 0.1);
+    }
+    .search-box.has-text .clear-btn {
+        display: flex;
+    }
 </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
@@ -87,13 +149,31 @@
     </header>
     <main class="flex flex-1 justify-center py-12 px-10">
         <div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
-            <!-- Title Section -->
-            <div class="flex flex-col gap-2 mb-10">
-                <h1 class="text-primary text-5xl font-black leading-tight tracking-[-0.033em]">CRUD'S DEL SISTEMA</h1>
-                <p class="text-primary/70 text-lg font-medium">Gestión administrativa y mantenimiento de datos maestros</p>
+            <!-- Title Section + Search -->
+            <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-10">
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-primary text-5xl font-black leading-tight tracking-[-0.033em]">CRUD'S DEL SISTEMA</h1>
+                    <p class="text-primary/70 text-lg font-medium">Gestión administrativa y mantenimiento de datos maestros</p>
+                </div>
+
+                <!-- Barra de búsqueda -->
+                <div class="search-box" id="searchBox" role="search">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input
+                        type="text"
+                        id="crudSearch"
+                        placeholder="Buscar CRUD..."
+                        aria-label="Buscar CRUD"
+                        autocomplete="off"
+                    >
+                    <button type="button" class="clear-btn" id="clearSearch" aria-label="Borrar búsqueda">
+                        <span class="material-symbols-outlined" style="font-size: 1.25rem;">close</span>
+                    </button>
+                </div>
             </div>
+
             <!-- Grid of CRUD Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="crudGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- 1. Productos -->
                 <a href="productos.html" class="card-link group">
                     <div class="icon-circle">
@@ -158,8 +238,64 @@
                     <span>Cotizaciones</span>
                 </a>
             </div>
+
+            <!-- Mensaje cuando no hay resultados -->
+            <div id="noResults" class="hidden flex-col items-center gap-2 py-16 text-center text-primary" aria-live="polite">
+                <span class="material-symbols-outlined text-5xl">search_off</span>
+                <p class="text-xl font-bold">No se encontró ningún CRUD</p>
+                <p class="text-primary/70 font-medium">Prueba con otro nombre, por ejemplo "Pedidos" o "Usuarios".</p>
+            </div>
         </div>
     </main>
 </div>
+
+<script>
+    (function () {
+        const input = document.getElementById('crudSearch');
+        const box = document.getElementById('searchBox');
+        const clearBtn = document.getElementById('clearSearch');
+        const cards = document.querySelectorAll('#crudGrid .card-link');
+        const noResults = document.getElementById('noResults');
+
+        // Quita acentos y pasa a minúsculas ("Matéria" == "materia")
+        const normalize = (text) =>
+            text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+
+        function filterCards() {
+            const query = normalize(input.value);
+            let visible = 0;
+
+            cards.forEach((card) => {
+                const name = normalize(card.querySelector(':scope > span').textContent);
+                const match = name.includes(query);
+                card.classList.toggle('is-hidden', !match);
+                if (match) visible++;
+            });
+
+            box.classList.toggle('has-text', input.value.length > 0);
+            noResults.classList.toggle('hidden', visible > 0);
+            noResults.classList.toggle('flex', visible === 0);
+        }
+
+        input.addEventListener('input', filterCards);
+
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            filterCards();
+            input.focus();
+        });
+
+        // Esc limpia la búsqueda; Enter abre el primer resultado visible
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                input.value = '';
+                filterCards();
+            } else if (e.key === 'Enter') {
+                const first = document.querySelector('#crudGrid .card-link:not(.is-hidden)');
+                if (first && input.value.trim() !== '') first.click();
+            }
+        });
+    })();
+</script>
 </body>
 </html>
